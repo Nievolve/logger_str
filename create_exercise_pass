@@ -1,0 +1,21 @@
+import sqlite3
+
+print("Skapa ett tärningspass")
+pass_name = input("Vad ska passet heta?: ")
+#connect eller skapa databas
+conn = sqlite3.connect(pass_name)
+#Create a cursor
+c = conn.cursor()
+exercise_name = []
+exercise_set = []
+exercise_reps = []
+print(" Skriv övning, antal set och reps")
+while True:
+    pass
+#Commit
+conn.commit()
+print("Skapar träningspass ", pass_name)
+print("Commit and closing connection...")
+#Close connection
+conn.close()
+#Create a table

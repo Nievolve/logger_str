@@ -1,0 +1,33 @@
+import sqlite3
+import target_data
+def insert_function():
+    c.execute(f"INSERT INTO {target_data.target_table} VALUES ('marklyft','20240109','1','3','5','75')")
+    print("Inserted into database : ", target_data.target_database)
+    print("Inserted into table : ", target_data.target_table)
+def in_data():
+    
+    while True:
+        exercise_name = input("Övning: ")
+        exercise_data = input("Datum: ")
+        exercise_reps = int(input("Reps: "))
+        exercise_weight = float(input("Vikt: "))
+        break_off = input("Korrekt Y/N: ")
+        if break_off.lower() == "y":
+            return exercise_name,exercise_data,exercise_reps,exercise_weight
+            break
+        elif break_off.lower() == "n":
+            print("Ok. Try again")
+        else:
+            print("Invalid input")
+#connect eller skapa databas
+conn = sqlite3.connect(target_data.target_database)
+#Create a cursor
+c = conn.cursor()
+in_data()
+insert_function()
+
+#Commit
+conn.commit()
+print("Closing connection...")
+#Close connection
+conn.close()

@@ -1,0 +1,16 @@
+import sqlite3
+import target_data
+
+def remove ():
+    c.execute(f'DROP TABLE IF EXISTS {target_data.target_table}')
+    print(target_data.target_table + " has been deleted.")
+
+#connect eller skapa databas
+conn = sqlite3.connect(target_data.target_database)
+#Create a cursor
+c = conn.cursor()
+remove()
+#Commit
+conn.commit()
+#Close connection
+conn.close()

@@ -1,0 +1,20 @@
+import os
+import glob
+
+def lista_db_filer(mapp_sökväg):
+    sökväg_till_databaser = os.path.join(mapp_sökväg, "databases")
+    sökväg_till_db_filer = os.path.join(sökväg_till_databaser, "*.db")
+    print(sökväg_till_db_filer)
+    db_filer = glob.glob(sökväg_till_db_filer)
+    return db_filer
+
+# Ange sökväg till den översta mappen där "databases"-mappen finns
+topp_mapp_sökväg = "."
+
+# Lista alla .db-filer i "databases"-mappen
+db_filer = lista_db_filer(topp_mapp_sökväg)
+
+# Skriv ut resultaten
+print(f".db-filer i {topp_mapp_sökväg}/databases:")
+for k in db_filer:
+    print(k)

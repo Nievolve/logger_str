@@ -1,0 +1,20 @@
+import sqlite3
+import target_data
+
+def read_data():
+    c.execute(f"SELECT * FROM {target_data.target_table}")
+    # Hämta alla rader från resultatet
+    rader = c.fetchall()
+
+    # Skriv ut resultaten
+    for rad in rader:
+        print(rad)
+
+# Anslut till databasen
+conn = sqlite3.connect(target_data.target_database)
+c = conn.cursor()
+
+read_data()
+
+# Stäng anslutningen
+conn.close()

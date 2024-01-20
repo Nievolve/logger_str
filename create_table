@@ -1,0 +1,45 @@
+import sqlite3
+import target_data
+
+def create_table ():
+    c.execute(f"""CREATE TABLE {target_data.target_table}(
+    övning text,
+    datum interger,
+    id interger,
+    set interger,
+    reps interger,
+    vikt real
+) """ )
+
+def create_pass_exercise ():
+    c.execute(f"""CREATE TABLE {target_data.target_table}(
+    övning text,
+    id interger PRIMARY KEY,
+    set interger,
+    reps interger,
+    
+) """ )
+#connect eller skapa databas
+conn = sqlite3.connect(target_data.target_database)
+#Create a cursor
+c = conn.cursor()
+#Create a table
+print("Logga pass eller planera pass?")
+x = int(input(":  "))
+if x == 1:
+
+    create_table()
+    print("Skapat table : ", target_data.target_table)
+    print("Till databasen : ", target_data.target_database)
+    print("Commit and closing connection...")
+elif x == 2:
+    create_pass_exercise()
+    print("Skapat pass : ", target_data.target_table)
+    print("Till databasen : ", target_data.target_database)
+    print("Commit and closing connection...")
+
+#Commit
+conn.commit()
+
+#Close connection
+conn.close()

@@ -1,0 +1,90 @@
+import sqlite3
+import uuid
+import target_data
+from datetime import datetime
+import os
+import glob
+
+
+conn = sqlite3.connect(target_data.target_database)
+                        # Functions
+def lista_db_filer():
+    db_filer = glob.glob("./databases/*.db") #Sökvägen till mappen där databaserna ligger
+    return db_filer
+
+def create_table_function():
+    conn = sqlite3.connect(target_data.target_database)
+    c = conn.cursor()
+    c.execute(f"""CREATE TABLE {target_data.target_table}(
+    övning text,
+    datum interger,
+    id interger,
+    set interger,
+    reps interger,
+    vikt real
+) """ )
+                        # Den ska kolla mot my_pass.db för att lista övningar, set, reps
+def insert_function():
+    conn = sqlite3.connect(target_data.target_database)
+    c = conn.cursor()
+    random_uuid = uuid.uuid4()
+    c.execute(f"INSERT INTO {target_data.target_table} VALUES ('marklyft',{datetime.today().date()},'{random_uuid}','//set','//reps','//vikt')")
+    
+def read_data():
+    conn = sqlite3.connect(target_data.target_database)
+    c = conn.cursor()
+    c.execute(f"SELECT * FROM {target_data.target_table}")
+                        # Hämta alla rader från resultatet
+    rader = c.fetchall()
+
+    # Skriv ut resultaten
+    for rad in rader:
+        print(rad)
+
+                        #Main many
+
+menu = {}
+menu['1'] = "[C]reate database"
+menu['2'] = "Create [T]able."
+menu['3'] = "[I]nsert data into table"
+menu['4'] = "[R]ead table"
+menu['5'] = "[D]elete table"
+menu['6'] = "[S]how Databases"
+menu['7'] = "[E]xit"
+
+print("Choose database: ")
+lista_db_filer()
+choice_db = input("")
+while True:
+    print("Connected to database ", target_data.target_database)
+    options = menu.keys()
+    for entry in sorted(options):
+        print(entry, menu[entry])
+    
+    selection = input("Please Select: ")
+    
+    if selection.lower() == '1':
+        print("[C]reate database")
+        conti = input("Press any key: ")
+    elif selection.lower() == '2':
+        print("Create table")
+        conti = input("Press any key: ")
+    elif selection.lower() == '3':
+        print("Insert")
+        conti = input("Press any key: ")
+    elif selection.lower() == '4':
+
+        print("Read table   ")
+        conti = input("Press any key: ")
+    elif selection.lower() == '5':
+        print("Delete")
+        conti = input("Press any key: ")
+    elif selection.lower() == '6': #Funktion implementerad Minus 12 tecken
+        for k in (lista_db_filer()): #ForLoop som listar ur listan alla databaser i string, tar bort de 12 första tecknen. pga det är sökvägen
+            print(k[12:])  
+        conti = input("Press any key: ")
+    elif selection.lower() == '7':
+        break
+    else:
+        print("Unknown Option Selected!")
+
